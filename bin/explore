@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'mars_explorer'
+
+if ARGV.one?
+  file = ARGV.shift
+
+  File.open(file) do |input|
+    MarsExplorer.run(input)
+  end
+else
+  require 'highline'
+
+  cli = HighLine.new
+
+  puts 'Interactive mode, enter commands:'
+
+  input = StringIO.new
+  plateau = nil
+
+  loop do
+    begin
+      plateau ||= cli.ask('Plateau size? (x y) > ')
+      input.puts(plateau)
+
+      rover = cli.ask('Rover position and heading? (x y [NESW]) > ')
+      input.puts(rover)
+
+      instructions = cli.ask('Rover instructions? ([LRM]) > ')
+      input.puts(instructions)
+
+      input.rewind
+
+      MarsExplorer.run(input)
+    rescue ArgumentError, Rover::Error => e
+      plateau = nil
+      puts e.message
+    ensure
+      # Cleanup input
+      input.truncate(0)
+      input.rewind
+
+      break unless cli.agree('Add another rover? [Y/n] > ') { |q| q.default = 'Y' }
+    end
+  end
+end
