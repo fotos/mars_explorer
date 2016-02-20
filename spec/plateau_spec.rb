@@ -32,4 +32,36 @@ describe Plateau do
       end
     end
   end
+
+  describe '#include?' do
+    let(:position) { FactoryGirl.build(:position) }
+
+    subject { plateau.include?(position) }
+
+    it { is_expected.to be(true) }
+
+    context 'when the position lng < min' do
+      let(:position) { FactoryGirl.build(:position, lng: plateau.x.min - 1) }
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the position lng > max' do
+      let(:position) { FactoryGirl.build(:position, lng: plateau.x.max + 1) }
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the position lat > min' do
+      let(:position) { FactoryGirl.build(:position, lat: plateau.y.min - 1) }
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the position lat > max' do
+      let(:position) { FactoryGirl.build(:position, lat: plateau.y.max + 1) }
+
+      it { is_expected.to eq(false) }
+    end
+  end
 end
