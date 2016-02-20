@@ -1,0 +1,38 @@
+AllCops:
+  TargetRubyVersion: 2.1
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 20
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Encoding:
+  EnforcedStyle: when_needed
+
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    "%w": "[]"
+    "%W": "[]"
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/RaiseArgs:
+  EnforcedStyle: compact
+
+Style/SpaceInsideBlockBraces:
+  EnforcedStyleForEmptyBraces: space
+
+Style/BlockDelimiters:
+  Exclude:
+    - spec/**/*.rb
