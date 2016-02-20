@@ -8,6 +8,8 @@ group :development, :test do
 
   gem 'guard-rspec'
   gem 'guard-rubocop'
+
+  gem 'factory_girl'
 end
 
 group :test do
